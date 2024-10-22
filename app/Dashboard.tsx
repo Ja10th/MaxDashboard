@@ -55,7 +55,7 @@ const Dashboard = () => {
     };
 
     return (
-      <div className="w-1/2 h-full border p-5 rounded-xl">
+      <div className="w-full md:w-1/2 h-full border p-5 rounded-xl">
         <h2 className="text-lg font-semibold py-3 pl-2 text-left">{title}</h2>
         <table className="w-full table-auto border-collapse border-b border-gray-300">
           <thead className="bg-gray-100">
@@ -81,7 +81,7 @@ const Dashboard = () => {
                       return (
                         <td
                           key={i}
-                          className="border-b border-gray-300  text-sm px-2 text-center"
+                          className="border-b border-gray-300  text-xs md:text-sm px-2 text-center"
                         >
                           <Chip status={item[key]} />
                         </td>
@@ -143,7 +143,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col space-y-4">
-      <div className="flex items-center px-10 py-2 gap-4">
+      <div className="flex flex-col md:flex-row items-center px-10 py-2 gap-4">
         {renderTable(
           recentlyAssignedData,
           "Recently Assigned to Me",
@@ -162,7 +162,7 @@ const Dashboard = () => {
           totalRecentlyViewedPages
         )}
       </div>
-      <div className="flex items-center px-10 py-2 gap-4">
+      <div className="flex flex-col md:flex-row items-center px-10 py-2 gap-4">
         {renderTable(
           completedTasksData,
           "Completed Tasks",
@@ -217,7 +217,7 @@ const Chip = ({ status }: { status: string }) => {
   }
 
   return (
-    <div className={`text-white text-xs font-semibold py-1 px-0 rounded-full ${bgColor}`}>
+    <div className={`text-white md:text-xs font-semibold w-20 md:w-auto py-1 px-0 rounded-full ${bgColor}`}>
       {status}
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { RiMenuUnfold2Fill } from "react-icons/ri";
 import { GeneralContext } from "../context/General";
 import { BsSearch } from "react-icons/bs";
@@ -15,18 +15,37 @@ const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isAdmin, setIsAdmin] = useState(true);
+  const dropdownRef = useRef<HTMLDivElement>(null); // Create a ref for the dropdown
 
-  const randomItems = ["Task 1", "Task 2", "Task 3", "Task 4", "Task 5"];
+  const randomItems = ["Project Alpha", "Project Beta", "Project Delta", "Project Wireframes", "Project Result"];
 
   const toggleDropDown = () => {
     setIsOpen(!isOpen);
   };
+
   const toggleRole = () => {
     setIsAdmin(!isAdmin);
   };
 
+  // Close dropdown if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false); // Close dropdown if clicked outside
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener("mousedown", handleClickOutside); // Add event listener when dropdown is open
+    }
+
+    return () => {
+      window.removeEventListener("mousedown", handleClickOutside); // Clean up on unmount
+    };
+  }, [isOpen]);
+
   return (
-    <div className="bg-gray-100 py-3 px-4 flex flex-col md:flex-row justify-between">
+    <div className="bg-gray-100 py-3 px-4 flex justify-between">
       <div className="flex items-center gap-4 relative">
         {/* Hamburger Menu */}
         <div onClick={toggleSideBar}>
@@ -34,7 +53,7 @@ const NavBar = () => {
         </div>
 
         {/* Initiate Workflow Dropdown */}
-        <div className="relative">
+        <div className="relative" ref={dropdownRef}> {/* Attach ref here */}
           <button
             className="bg-gray-200 p-3 flex items-center gap-2 rounded-xl"
             onClick={toggleDropDown}
@@ -66,8 +85,8 @@ const NavBar = () => {
           )}
         </div>
       </div>
-      <div className="md:flex items-center gap-4 hidden">
-        <div className="relative">
+      <div className="md:flex items-center gap-4 ">
+        <div className="relative md:block hidden">
           <input
             type="text"
             placeholder="Search..."
@@ -78,10 +97,10 @@ const NavBar = () => {
           {/* Search Icon */}
           <BsSearch className="absolute right-3 top-5 transform -translate-y-1/2 text-gray-700" />
         </div>
-        <button className="px-3 py-2 bg-blue-500 text-white rounded-xl ">
+        <button className="px-3 py-2 bg-blue-500 text-white rounded-xl hidden md:flex ">
           Upload File
         </button>
-        <div className="flex items-center justify-between gap-2 bg-gray-100 p-4 rounded-lg">
+        <div className="hidden md:flex  items-center justify-between gap-2 bg-gray-100 p-4 rounded-lg">
           {/* User Text */}
           <span className="text-left text-gray-700">User</span>
 

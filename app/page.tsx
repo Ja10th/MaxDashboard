@@ -2,7 +2,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
-import { IoDocumentsSharp } from "react-icons/io5";
+import { IoClose, IoDocumentsSharp } from "react-icons/io5";
 import { MdAssignment, MdAssignmentTurnedIn } from "react-icons/md";
 import { RiInboxUnarchiveFill } from "react-icons/ri";
 import { SiFiles } from "react-icons/si";
@@ -34,7 +34,7 @@ export default function Home() {
     throw new Error ("Context error")
   }
 
-  const {isOpened, setIsOpened} = generalContext
+  const {isOpened, setIsOpened, toggleSideBar} = generalContext
   useEffect(() => {
     const handleResize = () => {
       setIsOpened(window.innerWidth >= 768);
@@ -74,7 +74,7 @@ export default function Home() {
   return (
    <>
    <div className="flex">
-      <aside className={`bg-[#333547] h-screen ${isOpened ? 'w-[240px]' : 'w-16'}`}>
+      <aside className={`bg-[#333547] hidden md:block h-screen ${isOpened ? 'w-[240px]' : 'w-16'}`}>
       <div>
         {isOpened ? (
           <div>
@@ -106,6 +106,33 @@ export default function Home() {
          
         </div>
     </aside>
+     {/* Mobile Sidebar */}
+     {isOpened && (
+          <div className="fixed inset-0 bg-gray-800 bg-opacity-75 z-50 md:hidden">
+            <aside className="bg-[#333547] w-full h-full p-4">
+            <div className="bg-white flex items-center justify-between pr-4">
+            <img src="logom.png" alt="" className="" />
+            <IoClose className="text-3xl" onClick={toggleSideBar}/>
+          </div>
+              <div>
+                {sidebarItems.map(({ name, icon, route }) => (
+                  <div
+                    key={name}
+                    className={`flex items-center gap-x-3 px-6 py-4 text-[14px] rounded-md cursor-pointer ${
+                      activeItem === name
+                        ? "bg-[#1b1c25] text-white"
+                        : "text-gray-200"
+                    }`}
+                    onClick={() => handleItemClick(name, route)}
+                  >
+                    {icon}
+                    <p className="ml-2">{name}</p>
+                  </div>
+                ))}
+              </div>
+            </aside>
+          </div>
+        )}
     <main className="flex-grow">
       <NavBar />
         {renderContent()}
