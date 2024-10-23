@@ -11,7 +11,7 @@ const NavBar = () => {
     throw new Error("GeneralContext must be used within a GeneralProvider");
   }
 
-  const { isOpened, toggleSideBar } = generalContext;
+  const { toggleSideBar } = generalContext;
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isAdmin, setIsAdmin] = useState(true);

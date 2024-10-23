@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from "react";
+import { Item } from "../Dashboard";
 
 // Define an interface for the props
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  item: Record<string, any> | null; // Use Record to allow any key-value pairs or null
-  page: number; // Assuming page is a number
+  item: Item | null;
+  page: number;
 }
-
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, item, page }) => {
   const modalRef = useRef<HTMLDivElement>(null); // Create a ref for the modal content
 

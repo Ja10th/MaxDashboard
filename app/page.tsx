@@ -1,5 +1,5 @@
 'use client'
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import { IoClose, IoDocumentsSharp } from "react-icons/io5";
@@ -25,7 +25,6 @@ const sidebarItems = [
 ];
 
 export default function Home() {
-  const router = useRouter()
   const pathname = usePathname()
   const [activeItem, setActiveItem] = useState<string>("Dashboard");
   const [currentPath, setCurrentPath] = useState(pathname);
