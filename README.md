@@ -1,5 +1,5 @@
 # Maxwell Dashboard
-
+[Live Preview](https://maxdashboard.vercel.app/)
 <img width="1680" alt="image" src="https://github.com/user-attachments/assets/2e3ed4a7-d228-44dc-b1e7-a5470eded479">
 This project is a responsive web application that features a dynamic navigation system and a full-screen mobile sidebar. It is designed to provide an intuitive user experience across both large and small devices. The application allows users to navigate through various sections, access documents, and manage files seamlessly.
 
